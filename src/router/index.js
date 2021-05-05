@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import { routes } from '@router/routes.js'
-import { getLocalToken, tokenIsValid, getLocalRole } from '@helpers/functions'
+import { getLocalToken, tokenIsValid } from '@helpers/functions'
 
 Vue.use(Router)
 
@@ -43,7 +43,6 @@ const scrollBehavior = (to, from, savedPosition) => {
 
       /*
         Para usar isso devemos passar um meta
-
         <div id="apap">
           <h1>Scroll Behavior</h1>
           <ul>
@@ -57,7 +56,6 @@ const scrollBehavior = (to, from, savedPosition) => {
             <router-view class="view"></router-view>
           </transition>
         </div>
-
         methods: {
           afterLeave () {
             this.$root.$emit('triggerScroll')
@@ -84,23 +82,24 @@ const router = new Router({
 router.beforeEach(async (to, from, next) => {
   // Obtendo usuadio/token salvo localmente
   const tokenLocalStorage = getLocalToken()
-  const userRoleLocalStorage = getLocalRole()
   const hasGoBackAfterLogin = localStorage.getItem('goBackAfterLogin')
 
   // Meta da rota
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
-  const requiresUserAdmin = to.matched.some(record => record.meta.userAdmin)
-  const requiresUserClient = to.matched.some(record => record.meta.userClient)
 
   // Verifica se token é valido e refresh se for
   if (tokenLocalStorage) {
     const isValidToken = await tokenIsValid(tokenLocalStorage)
 
-    if (!isValidToken && requiresAuth) next({ name: 'LoginPage' })
+    if (!isValidToken && requiresAuth) next({ path: 'LoginPage' })
   }
 
   // Navegando
-  if (requiresAuth && !tokenLocalStorage) {
+  if (!requiresAuth && tokenLocalStorage) {
+    await removeGoBackAfterLogin()
+
+    next({ name: 'UserDashboardPage' })
+  } else if (requiresAuth && !tokenLocalStorage) {
     // Salvando a rota de destino para depois voltar o usuario para ela
     // Apagada apenas depois que efetuar o login ou se existir e a rota nao for de login e nem bloqueada
     localStorage.setItem('goBackAfterLogin', JSON.stringify(to.path))
@@ -109,19 +108,11 @@ router.beforeEach(async (to, from, next) => {
   } else if (requiresAuth && tokenLocalStorage) {
     await removeGoBackAfterLogin()
 
-    if (requiresUserAdmin && userRoleLocalStorage === 'admin') {
-      next()
-    } else if (requiresUserClient && userRoleLocalStorage === 'client') {
-      next()
-    } else {
-      next({ name: 'HomePage' })
-    }
-  } else if (tokenLocalStorage && to.path === '/login') {
+    next()
+  } else if (hasGoBackAfterLogin && to.path === '/login') {
     await removeGoBackAfterLogin()
 
-    next({ name: 'HomePage' })
-  } else if (hasGoBackAfterLogin && to.path === '/login') {
-    next()
+    next({ name: 'UserDashboardPage' })
   } else {
     await removeGoBackAfterLogin()
 

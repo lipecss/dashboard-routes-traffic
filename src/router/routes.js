@@ -1,7 +1,5 @@
 // Website pages
 const StartPage = () => import('@views/website/StartPage')
-const HomePage = () => import('@views/website/HomePage')
-const AboutPage = () => import('@views/website/AboutPage')
 const LoginPage = () => import('@views/website/LoginPage')
 
 // Errors Pages
@@ -9,8 +7,6 @@ const Error404Page = () => import('@views/errors/Error404Page')
 
 // Modules Pages
 const SystemBodyPage = () => import('@views/system/SystemBodyPage')
-// Admim
-const AdminDashboardPage = () => import('@views/system/admin/DashboardPage')
 // User
 const UserDashboardPage = () => import('@views/system/user/DashboardPage')
 
@@ -25,13 +21,8 @@ export const routes = [
     children: [
       {
         path: '/',
-        name: 'HomePage',
-        component: HomePage
-      },
-      {
-        path: '/about',
-        name: 'AboutPage',
-        component: AboutPage
+        name: 'LoginPage',
+        component: LoginPage
       },
       {
         path: '/404',
@@ -42,12 +33,7 @@ export const routes = [
     ]
   },
   {
-    path: '/login',
-    name: 'LoginPage',
-    component: LoginPage
-  },
-  {
-    path: '/dashboard',
+    path: '/system',
     component: SystemBodyPage,
     props: false,
     meta: {
@@ -55,23 +41,11 @@ export const routes = [
     },
     children: [
       {
-        path: 'admin',
-        name: 'AdminDashboardPage',
-        component: AdminDashboardPage,
-        meta: {
-          requiresAuth: true,
-          userAdmin: true,
-          userClient: false
-        }
-      },
-      {
         path: 'user',
         name: 'UserDashboardPage',
         component: UserDashboardPage,
         meta: {
-          requiresAuth: true,
-          userAdmin: false,
-          userClient: true
+          requiresAuth: true
         }
       }
     ]

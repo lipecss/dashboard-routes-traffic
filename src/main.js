@@ -9,6 +9,7 @@ import { myMixins } from '@/mixins'
 // Plugins
 import i18n from '@/i18n'
 import '@/plugins/fontAwesome'
+import '@/plugins/bootstrap'
 
 Vue.mixin(myMixins)
 
