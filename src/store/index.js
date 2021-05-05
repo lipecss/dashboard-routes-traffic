@@ -13,16 +13,17 @@ import getters from './getters'
 import ModuleErrors from './modules/errors'
 import ModuleLogin from './modules/login'
 import ModuleUser from './modules/user'
+import ModuleRoutes from './modules/routes'
 
 // Components
-// import CompX from '@components/fragments/x/store'
 
 Vue.use(Vuex)
 
 const modules = {
   ModuleErrors,
   ModuleLogin,
-  ModuleUser
+  ModuleUser,
+  ModuleRoutes
 }
 
 export default new Vuex.Store({
