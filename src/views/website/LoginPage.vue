@@ -3,7 +3,8 @@
     <b-row>
       <b-col cols="12" xs="12" class="login-page__content" order="2">
         <div class="login-page__content--form" order="1">
-          <h1>oi</h1>
+          <img :src="require('../../assets/img/drawkit-transport.svg')" width="100%" alt="">
+
           <p>{{ $t('pages.website.loginPage.title') }}</p>
 
           <b-form-input

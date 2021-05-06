@@ -45,11 +45,6 @@
       "type": "image/png"
     },
     {
-      "src": "./img/icons/apple-touch-icon-144x144.png",
-      "sizes": "144x144",
-      "type": "image/png"
-    },
-    {
       "src": "./img/icons/apple-touch-icon-152x152.png",
       "sizes": "152x152",
       "type": "image/png"
@@ -68,9 +63,9 @@
   ],
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f15574",
+  "background_color": "#212529",
   "scope": "./",
-  "theme_color": "#f15574",
+  "theme_color": "#212529",
   "prefer_related_applications": false,
   "orientation": "portrait"
 }

@@ -1,16 +1,17 @@
+
 /* TEAM */
-	Oq sou: Meu Nome.
-	Site: Meu Site.
-	Twitter: @meuContato.
-	Location: Minha Localização.
+	Desenvolvedor: Felipecss.
+	Site: felipecss.com.
+	Twitter: feipecss@vemlavaralouca.com.br.
+	Location: São Paulo, Brasil.
 
-							
+
 /* THANKS */
-	Name: Alguem
+	Name: Mae e pai e namorada
 
-							
+
 /* SITE */
-	Last update: 2021/02/26
+	Last update: 2021/05/06
 	Language: Portugues
 	Doctype: HTML5
 	Web Languages: HTML5, CSS3, JS
