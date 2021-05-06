@@ -2,6 +2,8 @@
   "name": "base-car-traffic",
   "version": "0.1.0",
   "private": true,
+  "description": "A dashboard created with vuejs, which displays traffic data for routes over a given period.",
+  "author": "Felipecss <felipecss.com> (http://felipecss.com/)",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
