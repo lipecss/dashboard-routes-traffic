@@ -1,5 +1,5 @@
 {
-  "name": "base-car-traffic",
+  "name": "dashboard-routes-traffic",
   "version": "0.1.0",
   "private": true,
   "description": "A dashboard created with vuejs, which displays traffic data for routes over a given period.",
