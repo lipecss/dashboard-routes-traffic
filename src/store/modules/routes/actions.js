@@ -10,5 +10,8 @@ export default {
   },
   async updateToList (context, payload) {
     context.commit('UPDATE_TO_LIST', payload)
+  },
+  async clearRouteList (context, payload) {
+    context.commit('CLEAR_ROUTE_LIST', payload)
   }
 }

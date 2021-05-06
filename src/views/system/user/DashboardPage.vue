@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 import { getRoutes } from '@/services/api'
 
 export default {
@@ -41,12 +42,11 @@ export default {
     }
   },
   beforeCreate () {},
-  created () {},
-  beforeMount () {},
-  async mounted () {
-    const result = await getRoutes()
-    this.routesFromAPI = result
+  async created () {
+    await this.syncRoutes()
   },
+  beforeMount () {},
+  mounted () {},
   beforeUpdate () {},
   updated () {},
   beforeDestroy () {},
@@ -54,6 +54,7 @@ export default {
   data () {
     return {
       routesFromAPI: [],
+      teste: [],
       kilometers: [],
       cards: [
         { title: 'Total Days', name: 'days', icon: ['fas', 'calendar-day'], theme: 'red' },
@@ -68,27 +69,7 @@ export default {
     BaseCard: () => import('@/components/fragments/BaseCard')
   },
   computed: {
-    allDays () {
-      return this.routesFromAPI.map((valor) => valor.date).filter((item, i, arr) => arr.indexOf(item) === i)
-    },
-    kilometersPerDay () {
-      const days = this.routesFromAPI.map((valor) => valor)
-        .filter((item, i, arr) => arr.indexOf(item) === i)
-
-      const forecast = days.reduce((acc, val) => {
-        const existingForecast = acc.find(f => f.date === val.date)
-        if (existingForecast) {
-          existingForecast.initialKm += val.initialKm
-          existingForecast.finalKm += val.finalKm
-        } else {
-          acc.push(val)
-        }
-
-        return acc
-      }, []).map(({ initialKm, finalKm }) => finalKm - initialKm)
-
-      return forecast
-    },
+    ...mapGetters('ModuleRoutes', ['routeList', 'allDays', 'kilometersPerDay', 'allFines']),
     averageKM () {
       // Average
       const average = this.kilometers.reduce((acc, val) => {
@@ -99,23 +80,6 @@ export default {
 
       return average
     },
-    allFines () {
-      const days = this.routesFromAPI.map((valor) => valor)
-        .filter((item, i, arr) => arr.indexOf(item) === i)
-
-      const forecast = days.reduce((acc, val) => {
-        const existingForecast = acc.find(f => f.date === val.date)
-        if (existingForecast) {
-          existingForecast.finesTotalAmount += val.finesTotalAmount
-        } else {
-          acc.push(val)
-        }
-
-        return acc
-      }, []).map(({ finesTotalAmount }) => finesTotalAmount)
-
-      return forecast
-    },
     total () {
       return {
         days: this.allDays.length,
@@ -124,7 +88,16 @@ export default {
       }
     }
   },
-  methods: {},
+  methods: {
+    ...mapActions('ModuleRoutes', ['setList']),
+    async syncRoutes () {
+      if (this.routeList.length <= 0) {
+        const routes = await getRoutes()
+        this.routesFromAPI = routes
+        this.setList(routes)
+      }
+    }
+  },
   filters: {},
   watch: {
     kilometersPerDay (newVal) {

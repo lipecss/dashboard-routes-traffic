@@ -8,8 +8,7 @@ export default {
   'REMOVE_TO_LIST' (state, payload) {
     state.routeList.splice(payload, 1)
   },
-  'UPDATE_TO_LIST' (state, payload) {
-    const item = state.routeList.find(item => item._id === payload)
-    if (item) state.routeList = item
+  'CLEAR_ROUTE_LIST' (state) {
+    state.routeList = []
   }
 }
