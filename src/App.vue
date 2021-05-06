@@ -41,7 +41,4 @@ export default {
 </script>
 
 <style lang="scss">
-* {
-  color: #000;
-}
 </style>

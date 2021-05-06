@@ -1,14 +1,30 @@
 <template>
   <b-container fluid class="dashborad-page">
     <b-row>
-      <b-col>
+      <b-col cols="12">
         <BaseLineChart
           :days="allDays"
           :kilometers="kilometersPerDay"
           :finesByDay="allFines"
           :average="averageKM"
         />
-        {{averageKM}}
+      </b-col>
+    </b-row>
+
+    <b-row class="mb-3">
+      <b-col cols="12" md="6" lg="4" v-for="(card, index) in cards" :key="index" class="mb-3">
+        <BaseCard
+          :propTitle="card.title"
+          propTheme="light"
+          :propIcon="card.icon"
+          :propIconTheme="card.theme"
+        >
+          <template v-slot:value>
+            <span class="text-success mr-2">
+              <slot name="value">{{ total[card.name] }}</slot>
+            </span>
+          </template>
+        </BaseCard>
       </b-col>
     </b-row>
   </b-container>
@@ -38,12 +54,18 @@ export default {
   data () {
     return {
       routesFromAPI: [],
-      kilometers: []
+      kilometers: [],
+      cards: [
+        { title: 'Total Days', name: 'days', icon: ['fas', 'calendar-day'], theme: 'red' },
+        { title: 'Total Kilometers', name: 'kilometers', icon: ['fas', 'truck'], theme: 'green' },
+        { title: 'Total Fines', name: 'fines', icon: ['fas', 'money-bill-alt'], theme: 'blue' }
+      ]
     }
   },
   props: {},
   components: {
-    BaseLineChart: () => import('@/components/fragments/BaseLineChart')
+    BaseLineChart: () => import('@/components/fragments/BaseLineChart'),
+    BaseCard: () => import('@/components/fragments/BaseCard')
   },
   computed: {
     allDays () {
@@ -93,6 +115,13 @@ export default {
       }, []).map(({ finesTotalAmount }) => finesTotalAmount)
 
       return forecast
+    },
+    total () {
+      return {
+        days: this.allDays.length,
+        kilometers: this.kilometersPerDay.reduce((total, km) => total + km, 0),
+        fines: this.allFines.reduce((total, fine) => total + fine, 0)
+      }
     }
   },
   methods: {},
@@ -105,7 +134,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .dashborad-page {
   .dashborad-page__content {
     padding-top: 70px;
