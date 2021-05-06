@@ -42,6 +42,6 @@ export default {
 
 <style lang="scss">
 * {
-  color: #fff
+  color: #000;
 }
 </style>

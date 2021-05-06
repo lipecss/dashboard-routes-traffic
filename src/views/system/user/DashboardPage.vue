@@ -2,7 +2,13 @@
   <b-container fluid class="dashborad-page">
     <b-row>
       <b-col>
-        <p>OIII</p>
+        <BaseLineChart
+          :days="allDays"
+          :kilometers="kilometersPerDay"
+          :finesByDay="allFines"
+          :average="averageKM"
+        />
+        {{averageKM}}
       </b-col>
     </b-row>
   </b-container>
@@ -23,7 +29,7 @@ export default {
   beforeMount () {},
   async mounted () {
     const result = await getRoutes()
-    console.log(result)
+    this.routesFromAPI = result
   },
   beforeUpdate () {},
   updated () {},
@@ -31,21 +37,76 @@ export default {
   destroyed () {},
   data () {
     return {
-      liveDatas: null
+      routesFromAPI: [],
+      kilometers: []
     }
   },
   props: {},
-  components: {},
-  computed: {},
+  components: {
+    BaseLineChart: () => import('@/components/fragments/BaseLineChart')
+  },
+  computed: {
+    allDays () {
+      return this.routesFromAPI.map((valor) => valor.date).filter((item, i, arr) => arr.indexOf(item) === i)
+    },
+    kilometersPerDay () {
+      const days = this.routesFromAPI.map((valor) => valor)
+        .filter((item, i, arr) => arr.indexOf(item) === i)
+
+      const forecast = days.reduce((acc, val) => {
+        const existingForecast = acc.find(f => f.date === val.date)
+        if (existingForecast) {
+          existingForecast.initialKm += val.initialKm
+          existingForecast.finalKm += val.finalKm
+        } else {
+          acc.push(val)
+        }
+
+        return acc
+      }, []).map(({ initialKm, finalKm }) => finalKm - initialKm)
+
+      return forecast
+    },
+    averageKM () {
+      // Average
+      const average = this.kilometers.reduce((acc, val) => {
+        const value = (val / this.kilometers.length).toFixed(2)
+        acc.push(value)
+        return acc
+      }, [])
+
+      return average
+    },
+    allFines () {
+      const days = this.routesFromAPI.map((valor) => valor)
+        .filter((item, i, arr) => arr.indexOf(item) === i)
+
+      const forecast = days.reduce((acc, val) => {
+        const existingForecast = acc.find(f => f.date === val.date)
+        if (existingForecast) {
+          existingForecast.finesTotalAmount += val.finesTotalAmount
+        } else {
+          acc.push(val)
+        }
+
+        return acc
+      }, []).map(({ finesTotalAmount }) => finesTotalAmount)
+
+      return forecast
+    }
+  },
   methods: {},
   filters: {},
-  watch: {}
+  watch: {
+    kilometersPerDay (newVal) {
+      this.kilometers = newVal
+    }
+  }
 }
 </script>
 
 <style scoped lang="scss">
 .dashborad-page {
-  color: #000;
   .dashborad-page__content {
     padding-top: 70px;
     padding-left: 0;
