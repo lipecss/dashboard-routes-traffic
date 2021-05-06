@@ -2,7 +2,7 @@
 
 Projeto desenvolvido com Vuejs e suas bibliotecas, para compor uma área de serviço/controle logistico (dashboard) na qual exibe algumas informações das rotas num determinado período.
 
-[Link para acesso - Netlify](https://uello-system-test.netlify.app/)
+[Link para acesso - Netlify](routes-traffic.netlify.app)
 
 ## Desenvolvimento
 ### Constrúido com
