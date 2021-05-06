@@ -1,10 +1,9 @@
 <template>
   <div class="base-card" :class="theme">
-
     <div class="base-card__content">
       <b-row>
         <b-col>
-          <h5 h5 v-if="propTitle" class="card-title text-uppercase text-muted">{{ propTitle }}</h5>
+          <h5 h5 v-if="propTitle" class="card-title text-uppercase text-muted">{{ $t(`pages.system.user.dashboardPage.card.${propTitle}`) }}</h5>
           <span class="h2 font-weight-bold mb-0"><slot name="value"></slot></span>
         </b-col>
         <b-col cols="auto">
@@ -13,7 +12,7 @@
           </div>
         </b-col>
       </b-row>
-      <p class="base-card__content--text-sm mt-3 mb-0">Current Month</p>
+      <p class="base-card__content--text-sm mt-3 mb-0">{{ $t('components.baseCard.contentText') }}</p>
     </div>
   </div>
 </template>

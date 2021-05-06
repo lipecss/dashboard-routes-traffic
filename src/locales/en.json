@@ -12,6 +12,11 @@
         "dashboardPage": {
           "html": {
             "title": "Dashboard"
+          },
+          "card": {
+            "days": "Total Day",
+            "kilometers": "Total Kilometers",
+            "fines": "Total Fines"
           }
         }
       },
@@ -86,6 +91,19 @@
         "homePage": {
           "success": "Success some"
         }
+      }
+    }
+  },
+  "components": {
+    "baseCard": {
+      "contentText": "Current Month"
+    },
+    "baseLineChart": {
+      "title": "Routes Graph",
+      "series": {
+        "km": "KM/day",
+        "avarage": "Average KM/day",
+        "fines": "Fines/day"
       }
     }
   }

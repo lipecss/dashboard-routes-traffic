@@ -6,7 +6,7 @@
           :days="allDays"
           :kilometers="kilometersPerDay"
           :finesByDay="allFines"
-          :average="averageKM"
+          :avarage="avarageKM"
         />
       </b-col>
     </b-row>
@@ -14,7 +14,7 @@
     <b-row class="mb-3">
       <b-col cols="12" md="6" lg="4" v-for="(card, index) in cards" :key="index" class="mb-3">
         <BaseCard
-          :propTitle="card.title"
+          :propTitle="card.name"
           propTheme="light"
           :propIcon="card.icon"
           :propIconTheme="card.theme"
@@ -70,15 +70,15 @@ export default {
   },
   computed: {
     ...mapGetters('ModuleRoutes', ['routeList', 'allDays', 'kilometersPerDay', 'allFines']),
-    averageKM () {
-      // Average
-      const average = this.kilometers.reduce((acc, val) => {
+    avarageKM () {
+      // avarage
+      const avarage = this.kilometers.reduce((acc, val) => {
         const value = (val / this.kilometers.length).toFixed(2)
         acc.push(value)
         return acc
       }, [])
 
-      return average
+      return avarage
     },
     total () {
       return {

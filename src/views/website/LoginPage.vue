@@ -3,9 +3,7 @@
     <b-row>
       <b-col cols="12" xs="12" class="login-page__content" order="2">
         <div class="login-page__content--form" order="1">
-          <img :src="require('../../assets/img/drawkit-transport.svg')" width="100%" alt="">
-
-          <p>{{ $t('pages.website.loginPage.title') }}</p>
+          <img :src="require('../../assets/img/drawkit-transport.svg')" width="100%" alt="transport svg" class="mb-4">
 
           <b-form-input
           v-model="loginData.username"
@@ -76,9 +74,7 @@ export default {
     }
   },
   props: {},
-  components: {
-    // TheI18nButton: () => import('@components/layout/TheI18nButton')
-  },
+  components: {},
   computed: {
     ...mapGetters('ModuleUser', [
       'userRole'

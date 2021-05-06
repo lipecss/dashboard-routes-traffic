@@ -12,6 +12,11 @@
         "dashboardPage": {
           "html": {
             "title": "Dashboard"
+          },
+          "card": {
+            "days": "Total de dia",
+            "kilometers": "Quilômetros totais",
+            "fines": "Total de multas"
           }
         }
       },
@@ -86,6 +91,19 @@
         "homePage": {
           "success": "Algum sucesso"
         }
+      }
+    }
+  },
+  "components": {
+    "baseCard": {
+      "contentText": "Mês Atual"
+    },
+    "baseLineChart": {
+      "title": "Gráfico das Rotas",
+      "series": {
+        "km": "KM/dia",
+        "avarage": " Média KM/dia",
+        "fines": "Multas/dia"
       }
     }
   }

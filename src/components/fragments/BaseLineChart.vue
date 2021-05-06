@@ -22,7 +22,7 @@ export default {
     days: { type: Array, required: true },
     kilometers: { type: Array, required: true },
     finesByDay: { type: Array, required: true },
-    average: { type: Array, required: true }
+    avarage: { type: Array, required: true }
   },
   computed: {
     options () {
@@ -58,7 +58,7 @@ export default {
           enabled: true
         },
         title: {
-          text: 'Gráfico das Rotas',
+          text: this.$t('components.baseLineChart.title'),
           align: 'left'
         },
         grid: {
@@ -76,16 +76,16 @@ export default {
         },
         series: [
           {
-            name: 'KM/dia',
+            name: this.$t('components.baseLineChart.series.km'),
             data: this.kilometers
           },
           {
-            name: 'Multas/dia',
+            name: this.$t('components.baseLineChart.series.avarage'),
             data: this.finesByDay
           },
           {
-            name: 'Média KM/dia',
-            data: this.average
+            name: this.$t('components.baseLineChart.series.fines'),
+            data: this.avarage
           }
         ],
         xaxis: {

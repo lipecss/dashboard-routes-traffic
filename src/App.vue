@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <router-view/>
+    <BaseI18nButton/>
   </div>
 </template>
 
@@ -32,7 +33,9 @@ export default {
     }
   },
   props: {},
-  components: {},
+  components: {
+    BaseI18nButton: () => import('@components/fragments/BaseI18nButton')
+  },
   computed: {},
   methods: {},
   filters: {},
